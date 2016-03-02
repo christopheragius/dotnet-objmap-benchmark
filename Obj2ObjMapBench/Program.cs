@@ -57,22 +57,29 @@ namespace Obj2ObjMapBench
                     AutoMapper.Mapper.Map<PersonDTO>(p);
                 }));
 
-            results.Add("TinyMapper", Benchmark(personsData, null, 
+            
+            results.Add("TinyMapper", Benchmark(personsData, 
+                () =>
+                {
+                    Nelibur.ObjectMapper.TinyMapper.Bind<Person, PersonDTO>();
+                }, 
                 p =>
                 {
                     Nelibur.ObjectMapper.TinyMapper.Map<PersonDTO>(p);
                 }));
 
+            var safeConvert = SafeMapper.SafeMap.GetConverter<Person, PersonDTO>();
             results.Add("SafeMapper", Benchmark(personsData, null, 
                 p =>
                 {
-                    SafeMapper.SafeMap.Convert<Person, PersonDTO>(p);
+                    safeConvert(p);
                 }));
 
+            var emitConvert = EmitMapper.ObjectMapperManager.DefaultInstance.GetMapper<Person, PersonDTO>();
             results.Add("EmitMapper", Benchmark(personsData, null,
                 p =>
                 {
-                    EmitMapper.ObjectMapperManager.DefaultInstance.GetMapper<Person, PersonDTO>().Map(p);
+                    emitConvert.Map(p);
                 }));
 
             results.Add("ValueInjecter", Benchmark(personsData, null,
