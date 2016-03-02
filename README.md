@@ -19,9 +19,9 @@ All the results are measured in Milliseconds.
 
 | Mapper | Simple | Nested |
 | --- | --- | --- |
-| Handwritten | 67 | 106 |
-| TinyMapper | 159 | 207 |
-| SafeMapper | 372 | 373 |
-| EmitMapper | 753 | 747 |
-| ValueInjecter | 1686 | 1746 |
-| AutoMapper | 2699 | 5042 |
+| Handwritten | 79 | 109 |
+| TinyMapper | 201 | 194 |
+| SafeMapper | 114 | 109 |
+| EmitMapper | 110 | 118 |
+| ValueInjecter | 2226 | 2231 |
+| AutoMapper | 3354 | 5717 |
