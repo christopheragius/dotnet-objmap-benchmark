@@ -1,14 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AutoMapper;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Obj2ObjMapBench
 {
-    public static class Extensions
+    public class AutoMapperBenchmark : BaseBenchmark
     {
-        public static AutoMapper.IMappingExpression<TSource, TDest> 
+        public AutoMapperBenchmark()
+        {
+            Mapper.CreateMap<Person, PersonDTO>().IgnoreAllUnmappedProperties();
+            Mapper.CreateMap<Address, AddressDTO>().IgnoreAllUnmappedProperties();
+        }      
+
+        public override void Map(Person person)
+        {
+            Mapper.Map<PersonDTO>(person);
+        }
+    }
+
+    public static class AutomapperExtensions
+    {
+        public static AutoMapper.IMappingExpression<TSource, TDest>
             IgnoreAllUnmappedProperties<TSource, TDest>(
                 this AutoMapper.IMappingExpression<TSource, TDest> @this)
         {
@@ -16,7 +27,7 @@ namespace Obj2ObjMapBench
             var sourceType = typeof(TSource);
             var destinationType = typeof(TDest);
 
-            var existingMaps = AutoMapper.Mapper.GetAllTypeMaps()
+            var existingMaps = Mapper.GetAllTypeMaps()
                 .First(x => x.SourceType.Equals(sourceType) &&
                     x.DestinationType.Equals(destinationType));
 
