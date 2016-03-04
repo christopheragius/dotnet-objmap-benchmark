@@ -8,9 +8,12 @@ namespace Obj2ObjMapBench
     {
         public AutoMapperBenchmark()
         {
-            Mapper.CreateMap<SimplePoco, SimplePocoDTO>().IgnoreAllUnmappedProperties();
-            Mapper.CreateMap<NestedPoco, NestedPocoDTO>().IgnoreAllUnmappedProperties();
-        }      
+            Mapper.Initialize(cfg => {
+                cfg.CreateMap<SimplePoco, SimplePocoDTO>().IgnoreAllUnmappedProperties();
+                cfg.CreateMap<NestedPoco, NestedPocoDTO>().IgnoreAllUnmappedProperties();
+            });
+            Mapper.AssertConfigurationIsValid();
+        }
 
         public override TDest Map<TSource, TDest>(TSource source)
         {
@@ -27,7 +30,7 @@ namespace Obj2ObjMapBench
 
             var sourceType = typeof(TSource);
             var destinationType = typeof(TDest);
-
+            
             var existingMaps = Mapper.GetAllTypeMaps()
                 .First(x => x.SourceType.Equals(sourceType) &&
                     x.DestinationType.Equals(destinationType));

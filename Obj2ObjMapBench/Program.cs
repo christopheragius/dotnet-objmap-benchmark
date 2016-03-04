@@ -20,12 +20,12 @@ namespace Obj2ObjMapBench
             Console.WriteLine();
 
             var benchmarksToRun = new Dictionary<string, Type>();
-            //benchmarksToRun.Add("Handwritten", typeof(HandwrittenBenchmark));
-            //benchmarksToRun.Add("AutoMapperBenchmark", typeof(AutoMapperBenchmark));
-            benchmarksToRun.Add("TinyMapperBenchmark", typeof(TinyMapperBenchmark));
-            //benchmarksToRun.Add("SafeMapperBenchmark", typeof(SafeMapperBenchmark));
-            //benchmarksToRun.Add("ValueInjecterBenchmark", typeof(ValueInjecterBenchmark));
-            //benchmarksToRun.Add("EmitMapperBenchmark", typeof(EmitMapperBenchmark));
+            benchmarksToRun.Add("Handwritten", typeof(HandwrittenBenchmark));
+            benchmarksToRun.Add("AutoMapperBenchmark", typeof(AutoMapperBenchmark));
+            //benchmarksToRun.Add("TinyMapperBenchmark", typeof(TinyMapperBenchmark));
+            benchmarksToRun.Add("SafeMapperBenchmark", typeof(SafeMapperBenchmark));
+            benchmarksToRun.Add("ValueInjecterBenchmark", typeof(ValueInjecterBenchmark));
+            benchmarksToRun.Add("EmitMapperBenchmark", typeof(EmitMapperBenchmark));
 
             var summaries = new List<Summary>();
             foreach (var item in benchmarksToRun)

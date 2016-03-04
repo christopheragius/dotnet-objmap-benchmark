@@ -18,7 +18,7 @@ namespace Obj2ObjMapBench
             GenerateSampleData(iterations);
         }
 
-        //[Benchmark]
+        [Benchmark]
         public void SimpleMap()
         {
             for (int i = 0; i < _simpleData.Count(); i++)
