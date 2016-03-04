@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Obj2ObjMapBench.Models;
 using System.Linq;
 
 namespace Obj2ObjMapBench
@@ -7,13 +8,13 @@ namespace Obj2ObjMapBench
     {
         public AutoMapperBenchmark()
         {
-            Mapper.CreateMap<Person, PersonDTO>().IgnoreAllUnmappedProperties();
-            Mapper.CreateMap<Address, AddressDTO>().IgnoreAllUnmappedProperties();
+            Mapper.CreateMap<SimplePoco, SimplePocoDTO>().IgnoreAllUnmappedProperties();
+            Mapper.CreateMap<NestedPoco, NestedPocoDTO>().IgnoreAllUnmappedProperties();
         }      
 
-        public override void Map(Person person)
+        public override TDest Map<TSource, TDest>(TSource source)
         {
-            Mapper.Map<PersonDTO>(person);
+            return Mapper.Map<TDest>(source);
         }
     }
 

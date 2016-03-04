@@ -7,11 +7,11 @@ namespace Obj2ObjMapBench
         public ValueInjecterBenchmark()
         {
             
-        }      
+        }
 
-        public override void Map(Person person)
+        public override TDest Map<TSource, TDest>(TSource source)
         {
-            Mapper.Map<PersonDTO>(person);
+            return Mapper.Map<TDest>(source);
         }
     }
 }

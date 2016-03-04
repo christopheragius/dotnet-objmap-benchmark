@@ -1,4 +1,7 @@
 ﻿using Nelibur.ObjectMapper;
+using Obj2ObjMapBench.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Obj2ObjMapBench
 {
@@ -6,12 +9,19 @@ namespace Obj2ObjMapBench
     {
         public TinyMapperBenchmark()
         {
-            TinyMapper.Bind<Person, PersonDTO>();
+            TinyMapper.Bind<SimplePoco, SimplePocoDTO>();
+            TinyMapper.Bind<NestedPoco, NestedPocoDTO>();
+
+            //TinyMapper.Bind<NestedPoco, NestedPocoDTO>(config =>
+            //{
+            //    config.Bind(source => source.NestedObjects, target => target.NestedObjects);
+            //    //config.Bind(target => target.NestedObjects, typeof(List<NestedPoco>));
+            //});
         }      
 
-        public override void Map(Person person)
+        public override TDest Map<TSource, TDest>(TSource source)
         {
-            TinyMapper.Map<PersonDTO>(person);
+            return TinyMapper.Map<TDest>(source);
         }
     }
 }

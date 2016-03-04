@@ -1,29 +1,45 @@
-﻿namespace Obj2ObjMapBench
+﻿using Obj2ObjMapBench.Models;
+using System;
+using System.Collections.Generic;
+
+namespace Obj2ObjMapBench
 {
     public class HandwrittenBenchmark : BaseBenchmark
     {
-        public HandwrittenBenchmark()
+        public override TDest Map<TSource, TDest>(TSource source) 
         {
+            if (source is SimplePoco)
+                return MapSimplePoco<TDest>(source as SimplePoco);
+            else if (source is NestedPoco)
+                return MapNestedPoco<TDest>(source as NestedPoco);
 
-        }      
+            throw new NotImplementedException();
+        }
 
-        public override void Map(Person person)
+        private TDest MapSimplePoco<TDest>(SimplePoco source) where TDest : class
         {
-            var obj = new PersonDTO
+            var instance = new SimplePocoDTO()
             {
-                FirstName = person.FirstName,
-                LastName = person.LastName
+                Address = source.Address,
+                BirthDate = source.BirthDate,
+                CreatedOn = source.CreatedOn,
+                Email = source.Email,
+                Enabled = source.Enabled,
+                Id = source.Id,
+                Name = source.Name,
+                PhoneNumber = source.PhoneNumber,
+                Town = source.Town,
+                ZipCode = source.ZipCode
             };
+            return instance as TDest;
+        }
 
-            if (person.ResidenceAddress != null)
-            {
-                obj.ResidenceAddress = new AddressDTO
-                {
-                    City = person.ResidenceAddress.City,
-                    StreetName = person.ResidenceAddress.StreetName,
-                    ZipCode = person.ResidenceAddress.ZipCode
-                };
-            }
+        private TDest MapNestedPoco<TDest>(NestedPoco source) where TDest : class
+        {
+            var instance = MapSimplePoco<NestedPocoDTO>(source);
+            foreach (var obj in source.NestedObjects)
+                instance.NestedObjects.Add(MapNestedPoco<NestedPocoDTO>(obj));
+            return instance as TDest;
         }
     }
 }
