@@ -24,25 +24,22 @@ HostCLR=MS.NET 4.0.30319.42000, Arch=32-bit RELEASE
 ```
 
 **Simple object (10.000 instances)**
-```
-    Mapper |    Median |    StdDev |
----------- |---------- |---------- |
- Handwritten | 1.6221 ms | 0.0713 ms |
- SafeMapper | 1.7654 ms | 0.2783 ms |
- EmitMapper | 1.8554 ms | 0.1163 ms |
- TinyMapper | 2.0483 ms | 0.0406 ms |
- ValueInjecter | 66.6965 ms | 2.7518 ms |
- AutoMapper | 93.6690 ms | 11.5649 ms |
-```
+
+| Mapper | Median | StdDev |
+| --- | ---: | ---: |
+| Handwritten | 1.6221 ms | 0.0713 ms |
+| SafeMapper | 1.7654 ms | 0.2783 ms |
+| EmitMapper | 1.8554 ms | 0.1163 ms |
+| TinyMapper | 2.0483 ms | 0.0406 ms |
+| ValueInjecter | 66.6965 ms | 2.7518 ms |
+| AutoMapper | 93.6690 ms | 11.5649 ms |
 
 **Nested objects  (10.000 instances)**
-``` 
-    Mapper |    Median |    StdDev |
----------- |---------- |---------- | 
- Handwritten | 1.6206 ms | 0.0364 ms |
- SafeMapper | 1.8354 ms | 0.0712 ms |
- EmitMapper | 1.9330 ms | 0.2161 ms |
- ValueInjecter | 74.4472 ms | 3.7340 ms |
- AutoMapper | 160.3249 ms |  6.4109 ms |
- ```
- 
+
+|    Mapper |    Median |    StdDev |
+|---------- |----------: |----------: | 
+| Handwritten | 1.6206 ms | 0.0364 ms |
+| SafeMapper | 1.8354 ms | 0.0712 ms |
+| EmitMapper | 1.9330 ms | 0.2161 ms |
+| ValueInjecter | 74.4472 ms | 3.7340 ms |
+| AutoMapper | 160.3249 ms |  6.4109 ms |
