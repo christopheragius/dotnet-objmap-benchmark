@@ -12,7 +12,7 @@ namespace Obj2ObjMapBench
                 cfg.CreateMap<SimplePoco, SimplePocoDTO>().IgnoreAllUnmappedProperties();
                 cfg.CreateMap<NestedPoco, NestedPocoDTO>().IgnoreAllUnmappedProperties();
             });
-            Mapper.AssertConfigurationIsValid();
+            Mapper.Configuration.AssertConfigurationIsValid();
         }
 
         public override TDest Map<TSource, TDest>(TSource source)
@@ -31,7 +31,7 @@ namespace Obj2ObjMapBench
             var sourceType = typeof(TSource);
             var destinationType = typeof(TDest);
             
-            var existingMaps = Mapper.GetAllTypeMaps()
+            var existingMaps = Mapper.Configuration.GetAllTypeMaps()
                 .First(x => x.SourceType.Equals(sourceType) &&
                     x.DestinationType.Equals(destinationType));
 
