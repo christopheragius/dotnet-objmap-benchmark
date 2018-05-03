@@ -3,10 +3,7 @@ using BenchmarkDotNet.Running;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Text;
-using BenchmarkDotNet.Extensions;
-using BenchmarkDotNet.Horology;
+
 
 namespace Obj2ObjMapBench
 {
@@ -21,11 +18,15 @@ namespace Obj2ObjMapBench
 
             var benchmarksToRun = new Dictionary<string, Type>();
             benchmarksToRun.Add("Handwritten", typeof(HandwrittenBenchmark));
+            benchmarksToRun.Add("AgileMapperBenchmark", typeof(AgileMapperBenchmark));
             benchmarksToRun.Add("AutoMapperBenchmark", typeof(AutoMapperBenchmark));
+            benchmarksToRun.Add("EmitMapperBenchmark", typeof(EmitMapperBenchmark));
+            //benchmarksToRun.Add("ExpressMapper", typeof(ExpressMapperBenchmark));
+            benchmarksToRun.Add("MapsterBenchmark", typeof(MapsterBenchmark));
             //benchmarksToRun.Add("TinyMapperBenchmark", typeof(TinyMapperBenchmark));
             benchmarksToRun.Add("SafeMapperBenchmark", typeof(SafeMapperBenchmark));
             benchmarksToRun.Add("ValueInjecterBenchmark", typeof(ValueInjecterBenchmark));
-            benchmarksToRun.Add("EmitMapperBenchmark", typeof(EmitMapperBenchmark));
+
 
             var summaries = new List<Summary>();
             foreach (var item in benchmarksToRun)
