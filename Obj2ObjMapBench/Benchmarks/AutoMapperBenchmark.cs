@@ -6,39 +6,22 @@ namespace Obj2ObjMapBench
 {
     public class AutoMapperBenchmark : BaseBenchmark
     {
+        private IMapper mapper;
+
         public AutoMapperBenchmark()
         {
-            Mapper.Initialize(cfg => {
-                cfg.CreateMap<SimplePoco, SimplePocoDTO>().IgnoreAllUnmappedProperties();
-                cfg.CreateMap<NestedPoco, NestedPocoDTO>().IgnoreAllUnmappedProperties();
+
+            MapperConfiguration config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<SimplePoco, SimplePocoDTO>();
+                cfg.CreateMap<NestedPoco, NestedPocoDTO>();
             });
-            Mapper.Configuration.AssertConfigurationIsValid();
+
+            mapper = config.CreateMapper();
         }
 
         public override TDest Map<TSource, TDest>(TSource source)
         {
-            return Mapper.Map<TDest>(source);
-        }
-    }
-
-    public static class AutomapperExtensions
-    {
-        public static AutoMapper.IMappingExpression<TSource, TDest>
-            IgnoreAllUnmappedProperties<TSource, TDest>(
-                this AutoMapper.IMappingExpression<TSource, TDest> @this)
-        {
-
-            var sourceType = typeof(TSource);
-            var destinationType = typeof(TDest);
-            
-            var existingMaps = Mapper.Configuration.GetAllTypeMaps()
-                .First(x => x.SourceType.Equals(sourceType) &&
-                    x.DestinationType.Equals(destinationType));
-
-            foreach (var prop in existingMaps.GetUnmappedPropertyNames())
-                @this.ForMember(prop, x => x.Ignore());
-
-            return @this;
+            return mapper.Map<TDest>(source);
         }
 
     }
